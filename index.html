@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>表單</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+    .button_form1 {
+        background-color: #000000;
+        /* Black */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        /* Smaller padding */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        /* Smaller font size */
+        margin: 4px 2px;
+        cursor: pointer;
+        transition: transform .2s;
+        /* Animation */
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+    }
+
+    .button_form2 {
+        background-color: #000000;
+        /* Black */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        /* Smaller padding */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        /* Smaller font size */
+        margin: 4px 2px;
+        cursor: pointer;
+        transition: transform .2s;
+        /* Animation */
+        position: fixed;
+        top: 0;
+        left: 150px;
+        z-index: 999;
+    }
+
+    .button_form:hover {
+        background-color: #4CAF50;
+        /* Green */
+    }
+
+    .button_form:active {
+        transform: scale(0.95);
+        /* Reduce the size of the button when clicked */
+    }
+
+    .background_button {
+        width: auto;
+        height: 50px;
+    }
+
+    .form_container {
+        display: none;
+    }
+
+    .form_container.active {
+        display: block;
+    }
+
+    p {
+
+        font-size: 20px;
+        margin-bottom: 1px;
+        margin-top: 2px;
+    }
+
+    label {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 1px;
+        margin-top: 2px;
+        max-width: 100px;
+    }
+
+
+    .form1_sumbit {
+        font-size: 20px;
+        /* 調整字體大小 */
+    }
+
+    .form1_result {
+        font-size: 20px;
+        border-bottom: black solid 2px;
+        /* 調整字體大小 */
+        margin-left: 10px;
+        width: 300px;
+    }
+
+    .form1_number {
+        width: 200px;
+        /* 調整寬度 */
+        height: 30px;
+        /* 調整高度 */
+        font-size: 20px;
+        /* 調整字體大小 */
+        margin-bottom: 5px;
+
+    }
+
+    form {
+        padding: 10px;
+        /* 增加內邊距 */
+    }
+
+
+    .addInput_Tax,
+    .result_Tax,
+    .reset_Tax,
+    .removeInput_Tax {
+        font-size: 15px;
+        /* 調整字體大小 */
+        padding: 5px 20px;
+        /* 調整內邊距 */
+        margin: 5px;
+        /* 調整外邊距 */
+    }
+
+    .form2_text_Function_input {
+        margin: 5px;
+        color: white;
+        background-color: #0b0153;
+        width: 250px;
+        padding: 2px;
+    }
+
+    .form2_text_Function {
+        margin: 5px;
+        color: #0b0153;
+    }
+
+
+    .form2_tax.row {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    .form2_tax_column {
+        display: flex;
+        flex-direction: column;
+        flex: 25%;
+        padding: 5px;
+        width: 120px;
+        height: 50px;
+    }
+
+    .form2_tax_column_taxrate_label {
+        margin-bottom: 15px;
+    }
+
+    .form2_tax_column_taxrate_span {
+        font-size: 17px;
+        margin-top: 5px;
+    }
+
+    .form2_tax_column.Amount,
+    .form2_tax_column.tax,
+    .form2_tax_column.taxrate,
+    .form2_tax_column.total {
+        margin-top: 5px;
+
+        margin-bottom: 10px;
+        width: 120px;
+        /* 調整寬度 */
+        height: auto;
+        /* 調整高度 */
+    }
+
+    .form2_tax_column_Amount_input {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        width: 150px;
+        padding: 6px;
+        font-size: 16px;
+    }
+
+
+    .form2_tax_column.taxrate div,
+    .form2_tax_column.tax div,
+    .form2_tax_column.total div,
+    .form2_tax_column.Amount div {
+        display: flex;
+        align-items: center;
+    }
+
+    .form2_tax_column_taxrate_input {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        width: 120px;
+        padding: 6px;
+        font-size: 16px;
+    }
+
+    .form2_tax_column_tax_output {
+        width: 65px;
+        font-size: 16px;
+        height: 49px;
+    }
+
+    .form2_tax_column_taxrate_output {
+        width: 65px;
+        font-size: 16px;
+        height: 49px;
+    }
+
+    .form2_tax_column_Amount_output {
+
+        width: 100px;
+        font-size: 16px;
+        height: 49px;
+    }
+
+    .form1_switch_mode {
+        margin: 10px;
+        font-size: 20px;
+
+    }
+
+    .switch_mode_text {
+        width: 230px;
+        margin-left: 10px;
+        padding: 5px;
+        font-size: 20px;
+        background-color: #10075A;
+        color: #FDFFEB
+    }
+
+    @media screen and (max-width:800px) {
+        .form2_tax_column_taxrate_input {
+            width: 35px;
+        }
+
+        .form2_tax_column_Amount_input {
+            width: 80px;
+        }
+
+        .form2_tax_column.Amount {
+            width: 100px;
+        }
+
+        .addInput_Tax,
+        .result_Tax,
+        .reset_Tax,
+        .removeInput_Tax {
+            padding: 5px 10px;
+        }
+    }
+</style>
+
+<body>
+    <button class="button_form1" onclick="switchform('form1')">計算坪數</button>
+    <button class="button_form2" onclick="switchform('form2')">計算稅</button>
+    <div class="background_button">
+
+    </div>
+    <div id="form1" class="form_container active">
+        <div>
+            <button class="form1_switch_mode" onclick="switchmode()">切換模式</button>
+            <p class="switch_mode_text" id='switch_mode_text'>當前模式:坪轉換平方公尺</p>
+        </div>
+        <div>
+            <form onsubmit="return calculate_square_feet()">
+                <label id='form1_label'>請輸入坪數</label><br>
+                <input id="form1_square_feet_value" type="number" step="0.000001" class="form1_number">
+                <input type="submit" value="提交" class="form1_sumbit">
+            </form>
+            <p id="form1_result_square_meters"></p>
+        </div>
+    </div>
+
+    <div id="form2" class="form_container">
+        <p class="form2_text_Function">功能欄位</p>
+        <button class="addInput_Tax" onclick="addInput_Tax()">增加欄位</button>
+        <button class="removeInput_Tax" onclick="removeInput_Tax()">移除欄位</button>
+        <button class="reset_Tax" onclick="reset_Tax()">重設</button>
+        <button class="result_Tax" onclick="result_Tax()">總計</button>
+
+        <form id="form2_tax">
+            <p class="form2_text_Function_input">在下列空格內輸入金額數字</p>
+            <div class="form2_tax row">
+                <div class="form2_tax_column Amount" id="form2_tax_Amount">
+                    <label class="form2_tax_column_taxrate_label" for="fname">金額</label>
+                    <input id="tax_value1" type="number" class="form2_tax_column_Amount_input">
+                </div>
+                <div class="form2_tax_column taxrate" id="form2_tax_taxrate">
+                    <label class="form2_tax_column_taxrate_label" for="fname">稅率</label>
+                    <div><input id="tax_value2" value=5 type="number" class="form2_tax_column_taxrate_input"><span
+                            class="form2_tax_column_taxrate_span">%</span>
+                    </div>
+                </div>
+                <div class="form2_tax_column tax" id="form2_tax_tax">
+                    <label class="form2_tax_column_taxrate_label" for="fname">稅金</label>
+                </div>
+                <div class="form2_tax_column total" id="form2_tax_total">
+                    <label class="form2_tax_column_taxrate_label" for="fname">合計</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+
+
+</html>
+<script>
+
+    var switch_mode = 'ping_transform_squarefeet'
+
+    function switchform(formId) {
+        var forms = document.getElementsByClassName('form_container')
+        for (var i = 0; i < forms.length; i++) {
+            forms[i].classList.remove('active')
+        }
+        document.getElementById(formId).classList.add('active')
+
+    }
+
+
+    function switchmode() {
+        if (switch_mode === 'ping_transform_squarefeet') {
+            switch_mode = 'squarefeet_transform_ping';
+            var get_inputElement = document.getElementById('switch_mode_text');
+            get_inputElement.innerHTML = '當前模式:平方公尺轉換坪'
+
+        } else if (switch_mode === 'squarefeet_transform_ping') {
+            switch_mode = 'ping_transform_squarefeet'
+            get_inputElement = document.getElementById('switch_mode_text');
+            get_inputElement.innerHTML = '當前模式:坪轉換平方公尺'
+
+        }
+    }
+
+
+    function calculate_square_feet() {
+        var get_inputElement = document.getElementById('form1_square_feet_value');
+        var inputValue = get_inputElement.value;
+        var total;
+
+        if (switch_mode === 'ping_transform_squarefeet') {
+            let square_feet_switch = 3.3058;
+            var total = inputValue * square_feet_switch;
+
+        }
+        else if (switch_mode === 'squarefeet_transform_ping') {
+
+            let ping = 0.3025
+            var total = inputValue * ping
+        }
+        var resultElement = document.getElementById('form1_result_square_meters');
+        resultElement.innerHTML = '結果為' + total;
+
+        resultElement.classList.add('form1_result')
+        return false
+
+    }
+
+    function addInput_Tax() {
+        var get_innerHtmlElement3 = document.getElementsByClassName('form2_tax_column_Amount_output');
+        while (get_innerHtmlElement3.length > 0) {
+            get_innerHtmlElement3[0].remove()
+        }
+        var get_inputElement1 = document.getElementById('form2_tax_Amount');
+        var addInput = document.createElement('input');
+        addInput.id = 'tax_value1';
+        addInput.type = 'number';
+        addInput.classList.add('form2_tax_column_Amount_input');
+        get_inputElement1.appendChild(addInput);
+
+        var get_inputElement2 = document.getElementById('form2_tax_taxrate');
+        var divElement = document.createElement('div')
+        divElement.classList.add('input_container_tax_taxtate')
+        var addInput2 = document.createElement('input')
+        addInput2.id = 'tax_value2';
+        addInput2.type = 'number'
+        addInput2.value = 5
+        addInput2.classList.add('form2_tax_column_taxrate_input');
+
+        divElement.appendChild(addInput2);
+        var spanElement = document.createElement('span');
+        spanElement.classList.add('form2_tax_column_taxrate_span')
+        spanElement.textContent = '%';
+
+        divElement.appendChild(spanElement)
+
+        get_inputElement2.appendChild(divElement)
+    }
+
+    function removeInput_Tax() {
+        var get_formElement1 = document.getElementById('form2_tax_Amount');
+        var get_formElement2 = document.getElementById('form2_tax_taxrate');
+
+        if (get_formElement1.children.length > 2) {
+            console.log(get_formElement1.lastChild)
+            get_formElement1.removeChild(get_formElement1.lastChild)
+        };
+        if (get_formElement2.children.length > 2) {
+            console.log(get_formElement2.lastChild)
+            get_formElement2.removeChild(get_formElement2.lastChild)
+        };
+
+    }
+
+    function reset_Tax() {
+        var get_formElement1 = document.getElementById('form2_tax_Amount');
+        var get_formElement2 = document.getElementById('form2_tax_taxrate');
+
+
+        while (get_formElement1.children.length > 2) {
+            get_formElement1.removeChild(get_formElement1.lastChild)
+        };
+        while (get_formElement2.children.length > 2) {
+            get_formElement2.removeChild(get_formElement2.lastChild)
+        };
+
+    }
+
+
+    function result_Tax() {
+        var get_innerHtmlElement1 = document.getElementsByClassName('form2_tax_column_tax_output');
+        while (get_innerHtmlElement1.length > 0) {
+            get_innerHtmlElement1[0].remove();
+        }
+        var get_innerHtmlElement2 = document.getElementsByClassName('form2_tax_column_taxrate_output');
+        while (get_innerHtmlElement2.length > 0) {
+            get_innerHtmlElement2[0].remove()
+        }
+        var get_innerHtmlElement3 = document.getElementsByClassName('form2_tax_column_Amount_output');
+        while (get_innerHtmlElement3.length > 0) {
+            get_innerHtmlElement3[0].remove()
+        }
+        var get_inputElement1 = document.getElementsByClassName('form2_tax_column_Amount_input');
+        var get_inputElement2 = document.getElementsByClassName('form2_tax_column_taxrate_input');
+        var percentage = 0.01;
+        var Tax = 0;
+        var subtotal = 0;
+        var total_subtotal = 0;
+        var total_Tax = 0;
+        var total_Amount = 0;
+        var round_Tax;
+        var get_formElement1 = document.getElementById('form2_tax_tax');
+        var get_formElement2 = document.getElementById('form2_tax_total');
+
+
+
+
+        for (var i = 0; i < get_inputElement1.length; i++) {
+            for (var i = 0; i < get_inputElement2.length; i++) {
+                total_Amount = total_Amount + parseFloat(get_inputElement1[i].value);
+                Tax = percentage * parseFloat(get_inputElement2[i].value) * parseFloat(get_inputElement1[i].value);
+                console.log('這是稅' + Tax);
+                var round_Tax = Tax.toFixed(0);
+                console.log('四捨五入' + round_Tax)
+                total_Tax += parseFloat(round_Tax) ;
+                subtotal = parseFloat(get_inputElement1[i].value) + Tax;
+                console.log(subtotal);
+                var round_Subtotal = subtotal.toFixed(0)
+                total_subtotal += parseFloat(round_Subtotal) ;
+
+                var adddivElement1 = document.createElement('div');
+                adddivElement1.classList.add('form2_tax_column_tax_output');
+                adddivElement1.innerHTML = round_Tax + '元';
+                get_formElement1.appendChild(adddivElement1);
+
+                var adddivElement2 = document.createElement('div');
+                adddivElement2.classList.add('form2_tax_column_taxrate_output');
+                adddivElement2.innerHTML = round_Subtotal + '元';
+                get_formElement2.appendChild(adddivElement2);
+
+            }
+
+        }
+        console.log(total_Amount);
+        var get_formElement3 = document.getElementById('form2_tax_Amount')
+        var adddivElement3 = document.createElement('div');
+        adddivElement3.classList.add('form2_tax_column_Amount_output');
+        adddivElement3.innerHTML = '總計:' + total_Amount + '元'
+        get_formElement3.appendChild(adddivElement3)
+        console.log(total_Tax);
+        var adddivElement4 = document.createElement('div');
+        adddivElement4.classList.add('form2_tax_column_tax_output');
+        adddivElement4.innerHTML = total_Tax + '元';
+        get_formElement1.appendChild(adddivElement4)
+        console.log(total_subtotal);
+        var adddivElement5 = document.createElement('div');
+        adddivElement5.classList.add('form2_tax_column_taxrate_output');
+        adddivElement5.innerHTML = total_subtotal + '元';
+        get_formElement2.appendChild(adddivElement5)
+    }
+
+
+</script>
