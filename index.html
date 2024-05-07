@@ -426,6 +426,18 @@
         while (get_formElement2.children.length > 2) {
             get_formElement2.removeChild(get_formElement2.lastChild)
         };
+        var get_innerHtmlElement1 = document.getElementsByClassName('form2_tax_column_tax_output');
+        while (get_innerHtmlElement1.length > 0) {
+            get_innerHtmlElement1[0].remove();
+        }
+        var get_innerHtmlElement2 = document.getElementsByClassName('form2_tax_column_taxrate_output');
+        while (get_innerHtmlElement2.length > 0) {
+            get_innerHtmlElement2[0].remove()
+        }
+        var get_innerHtmlElement3 = document.getElementsByClassName('form2_tax_column_Amount_output');
+        while (get_innerHtmlElement3.length > 0) {
+            get_innerHtmlElement3[0].remove()
+        }
 
     }
 
